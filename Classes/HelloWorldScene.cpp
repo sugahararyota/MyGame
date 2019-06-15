@@ -203,7 +203,26 @@ void HelloWorld::update(float delta)
 		break;
 	case 2:
 		// 右移動
+		pos = sprite->getPosition();
+		pos += Vec2(5.0f, 0.0f);
+		sprite->setPosition(pos);
+		// 左端に達したら
+		if (pos.x >= 1080)
+		{
+			state = 3; // 下移動に切り替える
+		}
 		break;
+	case 3:
+		pos = sprite->getPosition();
+		pos += Vec2(0.0f, 5.0f);
+		sprite->setPosition(pos);
+		// 下端に達したら
+		if (pos.y >= 620)
+		{
+			state = 0; // 右移動に切り替える
+		}
+		break;
+
 	default:
 		// 上移動
 		break;
