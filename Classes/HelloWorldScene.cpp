@@ -102,10 +102,43 @@ bool HelloWorld::init()
     }
 
 	sprite = Sprite::create("neko.png");
+	spriteB = Sprite::create("sinku.png");
+	//sprite = Sprite::create("sample04.png");
 	this->addChild(sprite);
+	this->addChild(spriteB);
+
+	//アクションの作成
+	{
+		MoveBy* action1 = MoveBy::create(1.0f, Vec2(200, 100));
+		EaseOut* action2 = EaseOut::create(action1, 2.0f);
+		EaseBounceIn* action3 = EaseBounceIn::create(action1);
+		sprite->runAction(action2);
+	}
+	{
+		MoveBy* action1 = MoveBy::create(1.0f, Vec2(-200, 100));
+		EaseOut* action2 = EaseOut::create(action1, 2.0f);
+		EaseBounceIn* action3 = EaseBounceIn::create(action1);
+		spriteB->runAction(action2);
+		//spriteB->runAction(action2->clone);上のやつを複製できる
+	}
+	//ScaleTo* action1 = ScaleTo::create(1.0f, 3.0f);
+	//JumpTo* action1 = JumpTo::create(1.5f, Vec2(200, 100), 500, 1);
+	/*ccBezierConfig conf;
+	conf.controlPoint_1 = Vec2(500, 500);
+	conf.controlPoint_2 = Vec2(-700, -700);
+	conf.endPosition = Vec2(700, 700);
+	BezierTo* action1 = BezierTo:: create(3.0f, conf);*/
+	/*sprite->setOpacity(0);
+	FadeIn* action1 = FadeIn::create(1.0f);*/
+	
+
+
+	//this->addChild(spriteB);
+	spriteB->setScale(2.0f, 2.0f);
 
 	//表示座標を指定
-	sprite->setPosition(Vec2(1000.0f, 500.0f));
+	sprite->setPosition(Vec2(1280/2.0f, 720/2.0f));
+	spriteB->setPosition(Vec2(1280 / 2.0f, 720 / 2.0f));
 	//回転角を指定（45度
 	//sprite->setRotation(45.0f);
 	//拡縮を指定（45
@@ -121,11 +154,32 @@ bool HelloWorld::init()
 	//不透明度を設定
 	sprite->setOpacity(255);
 
-	this->scheduleUpdate();
+	//画像の左下が（0,0）
+	//画像の右上が（1,0）
+	//基準点を指定する
+	sprite->setAnchorPoint(Vec2(0.0f, 1.0f));
+	//spriteB->setAnchorPoint(Vec2(0.0f, 1.0f));
+
+	//sprite->setRotation(45.0f);
+
+	//色指定
+	//sprite->setColor(Color3B(0,0,0));
+
+	//sprite->setFlippedX(true);
+	//sprite->setTextureRect(Rect(0, 32, 32, 32));
+
+	this->scheduleUpdate();         //変更
 
 	//counter = 0;
 
-	state = 0;
+	/*state = 0;
+
+	fot = 0;
+
+	blue = 0;
+
+	opacity = 0;*/
+
 
     return true;
 }
@@ -146,7 +200,26 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 void HelloWorld::update(float delta)
 {
-	Vec2 pos;
+	/*opacity += 1.0f;
+	spriteB->setOpacity(opacity);
+	sprite->setOpacity(255.0f - opacity);
+	if (opacity >= 255.0f)
+	{
+		opacity = 255.0f;
+	}*/
+
+
+	/*blue += 255.0f/180.0f;
+	if (blue > 255.0f)
+	{
+		blue = 255.0f;
+	}
+	sprite->setColor(Color3B(255-blue, 0, blue));
+	
+	fot += 5.0f;
+	sprite->setRotation(fot);*/
+
+	//Vec2 pos;
 	
 	//switch (state)
 	//{
@@ -176,57 +249,90 @@ void HelloWorld::update(float delta)
 	//default:
 	//	break;
 	//}
-	switch (state)
-	{
-		//opacity = 0.0f;
-	case 0:
-		// 左移動
-		pos = sprite->getPosition();
-		pos += Vec2(-5.0f, 0.0f);
-		sprite->setPosition(pos);
-		// 左端に達したら
-		if (pos.x <= 100)
-		{
-			state = 1; // 下移動に切り替える
-		}
-		break;
-	case 1:
-		// 下移動
-		pos = sprite->getPosition();
-		pos += Vec2(0.0f, -5.0f);
-		sprite->setPosition(pos);
-		// 下端に達したら
-		if (pos.y <= 100)
-		{
-			state = 2; // 右移動に切り替える
-		}
-		break;
-	case 2:
-		// 右移動
-		pos = sprite->getPosition();
-		pos += Vec2(5.0f, 0.0f);
-		sprite->setPosition(pos);
-		// 左端に達したら
-		if (pos.x >= 1080)
-		{
-			state = 3; // 下移動に切り替える
-		}
-		break;
-	case 3:
-		pos = sprite->getPosition();
-		pos += Vec2(0.0f, 5.0f);
-		sprite->setPosition(pos);
-		// 下端に達したら
-		if (pos.y >= 620)
-		{
-			state = 0; // 右移動に切り替える
-		}
-		break;
+	//switch (state)
+	//{
+	//	//opacity = 0.0f;
+	//case 0:
+	//	// 左移動
+	//	pos = sprite->getPosition();
+	//	pos += Vec2(-5.0f, 0.0f);
+	//	sprite->setPosition(pos);
+	//	// 左端に達したら
+	//	if (pos.x <= 100)
+	//	{
+	//		state = 1; // 下移動に切り替える
+	//	}
+	//	break;
+	//case 1:
+	//	// 下移動
+	//	pos = sprite->getPosition();
+	//	pos += Vec2(0.0f, -5.0f);
+	//	sprite->setPosition(pos);
+	//	// 下端に達したら
+	//	if (pos.y <= 100)
+	//	{
+	//		state = 2; // 右移動に切り替える
+	//	}
+	//	break;
+	//case 2:
+	//	// 右移動
+	//	pos = sprite->getPosition();
+	//	pos += Vec2(5.0f, 0.0f);
+	//	sprite->setPosition(pos);
+	//	// 左端に達したら
+	//	if (pos.x >= 1080)
+	//	{
+	//		state = 3; // 下移動に切り替える
+	//	}
+	//	break;
+	//case 3:
+	//	pos = sprite->getPosition();
+	//	pos += Vec2(0.0f, 5.0f);
+	//	sprite->setPosition(pos);
+	//	// 下端に達したら
+	//	if (pos.y >= 620)
+	//	{
+	//		state = 0; // 右移動に切り替える
+	//	}
+	//	break;
 
-	default:
-		// 上移動
-		break;
-	}
+	//default:
+	//	// 上移動
+	//	break;
+	//}
+	//反転移動
+	//switch (state)
+	//{
+	//	//opacity = 0.0f;
+	//case 0:
+	//	// 左移動
+	//	pos = sprite->getPosition();
+	//	pos += Vec2(-5.0f, 0.0f);
+	//	sprite->setPosition(pos);
+	//	// 左端に達したら
+	//	if (pos.x <= 100)
+	//	{
+	//		sprite->setFlippedX(true);
+	//		state = 1; // 下移動に切り替える
+	//	}
+	//	break;
+	//case 1:
+	//	// 下移動
+	//	pos = sprite->getPosition();
+	//	pos += Vec2(5.0f, 0.0f);
+	//	sprite->setPosition(pos);
+	//	// 下端に達したら
+	//	if (pos.x >= 1180)
+	//	{
+	//		sprite->setFlippedX(false);
+	//		state = 0; // 右移動に切り替える
+	//	}
+	//	break;
+	//
+	//default:
+	//	// 上移動
+	//	break;
+	//}
 
 	// スプライトの現在座標を取得
 	//Vec2 pos = sprite->getPosition();
