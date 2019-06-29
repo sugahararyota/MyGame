@@ -100,25 +100,137 @@ bool HelloWorld::init()
         // add the label as a child to this layer
         this->addChild(label, 1);
     }
+
+	//{//0629やってみよう1
+	//	// Spriteの生成
+	//	Sprite* spr = Sprite::create("neko.png");
+	//	this->addChild(spr);
+	//	spr->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 100));
+	//	spr->setScale(0.2f);
+
+	//	// 移動アクションの生成
+	//	MoveTo* moveLeft = MoveTo::create(5.0f, Vec2(100, visibleSize.height - 100));
+	//	MoveTo* moveRight = MoveTo::create(5.0f, Vec2(visibleSize.width - 100, visibleSize.height - 100));
+
+	//	// 連続アクションの生成
+	//	Sequence* seq = Sequence::create(moveLeft, moveRight, nullptr);
+
+	//	// アクションの実行
+	//	spr->runAction(seq);
+	//}
+	//{//0629やってみよう2
+	//	Sprite* spr1 = Sprite::create("neko.png");
+	//spr->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 100));
+	//	this->addChild(spr1);
+	//	MoveTo* moveLeft = MoveTo::create(5.0f, Vec2(100, visibleSize.height - 100));
+	//	MoveTo* moveRight = MoveTo::create(5.0f, Vec2(visibleSize.width - 100, visibleSize.height - 100));
+	//	Sequence* seq1 = Sequence::create(moveLeft, moveRight, nullptr);
+
+	//	// フェードアクションの生成
+	//	FadeOut* fadeOut = FadeOut::create(5.0f);
+	//	FadeIn* fadeIn = FadeIn::create(5.0f);
+
+	//	// 連続アクションの生成
+	//	Sequence* seq2 = Sequence::create(fadeOut, fadeIn, nullptr);
+
+	//	// 同時アクションの生成
+	//	Spawn* allAction = Spawn::create(seq1, seq2, nullptr);
+
+	//	spr1->runAction(allAction);
+	//}
+	//{//0629やってみよう3
+	//	Sprite* spr1 = Sprite::create("neko.png");
+	//	spr1->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 100));
+	//	this->addChild(spr1);
+	//	MoveTo* moveLeft = MoveTo::create(5.0f, Vec2(100, visibleSize.height - 100));
+	//	MoveTo* moveRight = MoveTo::create(5.0f, Vec2(visibleSize.width - 100, visibleSize.height - 100));
+	//	Sequence* seq1 = Sequence::create(moveLeft, moveRight, nullptr);
+
+	//	// フェードアクションの生成
+	//	FadeOut* fadeOut = FadeOut::create(5.0f);
+	//	FadeIn* fadeIn = FadeIn::create(5.0f);
+
+	//	// 連続アクションの生成
+	//	Sequence* seq2 = Sequence::create(fadeOut, fadeIn, nullptr);
+
+	//	// 同時アクションの生成
+	//	Spawn* spawn = Spawn::create(seq1, seq2, nullptr);
+
+	//	// 繰り返しアクションの生成
+	//	Repeat* allAction = Repeat::create(spawn, 5);
+
+	//	spr1->runAction(allAction);
+	//}
+	//{//0629やってみよう4
+	//	Sprite* spr1 = Sprite::create("neko.png");
+ //       spr1->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 100));
+	//	this->addChild(spr1);
+	//	MoveBy* moveLeft = MoveBy::create(1.0f, Vec2(-(visibleSize.width - 200), 0));
+	//	MoveBy* moveDown = MoveBy::create(1.0f, Vec2(0, -(visibleSize.height - 200)));
+	//	MoveBy* moveRight = moveLeft->reverse();
+	//	MoveBy* moveUp = moveDown->reverse();
+
+	//	Sequence* seq1 = Sequence::create(moveLeft, moveDown, moveRight, moveUp, nullptr);
+
+	//	spr1->runAction(seq1);
+	//}
+
+	{//0629やってみよう5
+		Sprite* spr1 = Sprite::create("neko.png");
+		spr1->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 100));
+		this->addChild(spr1);
+		MoveBy* moveLeft = MoveBy::create(1.0f, Vec2(-(visibleSize.width - 200), 0));
+		MoveBy* moveDown = MoveBy::create(1.0f, Vec2(0, -(visibleSize.height - 200)));
+		MoveBy* moveRight = moveLeft->reverse();
+		MoveBy* moveUp = moveDown->reverse();
+
+		Sequence* seq1 = Sequence::create(moveLeft, moveDown, moveRight, moveUp, nullptr);
+
+		RepeatForever* repeat = RepeatForever::create(seq1);
+
+		spr1->runAction(repeat);
+	}
+	
+
 	//sprite[0]->setPosition(Vec2(1280 / 2.0f, 720 / 2.0f));
 	//乱数の初期化//Random r = new Rondom();と同じ
 	//srand(time(nullptr));
+	//{0629
+	//	//移動アクション
+	//	//Sprite* spr = Sprite::create("neko.png");
+	//	Sprite* spr = Sprite::create("sinku.png");
+	//	this->addChild(spr);
 
-	//移動アクション
-	Sprite* spr = Sprite::create("neko.png");
-	this->addChild(spr);
-	//MoveToの後にJumpToとTinToを同時発動させる
+	//	JumpTo* action1 = JumpTo::create(0.5f, Vec2(100.0f, 100.0f), 100, 1);
 
-	MoveTo* action1 = MoveTo::create(2.0f, Vec2(600.0f, 300.0f));
+	//	//ToggleVisibility* action2 = ToggleVisibility::create();
 
-	JumpTo* action2 = JumpTo::create(1.0f, Vec2(200.0f, 200.0f), 300.0f, 2);
-	TintTo* action3 = TintTo::create(2.0f, Color3B(255, 255, 0));
+	//	//DelayTime* action2 = DelayTime::create(1.0);
 
-	//JumoToとTintToの同時委発動
-	Spawn* action4 = Spawn::create(action2, action3, nullptr);
-	Sequence* action5 = Sequence::create(action1, action4, nullptr);
-	spr->runAction(action5);
+	//	MoveTo* action2 = MoveTo::create(2.0f, Vec2(600.0f, 300.0f));
 
+
+	//	//必ず最後に組み込む（自信を削除する
+	//	RemoveSelf* action3 = RemoveSelf::create();
+
+	//	Sequence* action4 = Sequence::create(action1, action2, action3, nullptr);
+
+	//	/*Repeat* action4 = Repeat::create(action3, 3);*/
+	//	//無限に繰り返す
+	//	RepeatForever* action5 = RepeatForever::create(action4);
+	//	spr->runAction(action5);
+	//	////MoveToの後にJumpToとTinToを同時発動させる
+
+	//	//MoveTo* action1 = MoveTo::create(2.0f, Vec2(600.0f, 300.0f));
+
+	//	//JumpTo* action2 = JumpTo::create(1.0f, Vec2(200.0f, 200.0f), 300.0f, 2);
+	//	//TintTo* action3 = TintTo::create(2.0f, Color3B(255, 255, 0));
+
+	//	////JumoToとTintToの同時委発動
+	//	//Spawn* action4 = Spawn::create(action2, action3, nullptr);
+	//	//Sequence* action5 = Sequence::create(action1, action4, nullptr);
+	//	//spr->runAction(action5);
+	//}0629
 	//for(int i = 0;i<5;i++)
 	//{
 	//	sprite[i] = Sprite::create("sinku1.png");
