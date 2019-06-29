@@ -100,27 +100,67 @@ bool HelloWorld::init()
         // add the label as a child to this layer
         this->addChild(label, 1);
     }
+	//sprite[0]->setPosition(Vec2(1280 / 2.0f, 720 / 2.0f));
+	//乱数の初期化//Random r = new Rondom();と同じ
+	//srand(time(nullptr));
+
+	//移動アクション
+	Sprite* spr = Sprite::create("neko.png");
+	this->addChild(spr);
+	//MoveToの後にJumpToとTinToを同時発動させる
+
+	MoveTo* action1 = MoveTo::create(2.0f, Vec2(600.0f, 300.0f));
+
+	JumpTo* action2 = JumpTo::create(1.0f, Vec2(200.0f, 200.0f), 300.0f, 2);
+	TintTo* action3 = TintTo::create(2.0f, Color3B(255, 255, 0));
+
+	//JumoToとTintToの同時委発動
+	Spawn* action4 = Spawn::create(action2, action3, nullptr);
+	Sequence* action5 = Sequence::create(action1, action4, nullptr);
+	spr->runAction(action5);
+
+	//for(int i = 0;i<5;i++)
+	//{
+	//	sprite[i] = Sprite::create("sinku1.png");
+	//	this->addChild(sprite[i]);
+	//	sprite[i]->setPosition(Vec2(300*i, visibleSize.height/2.0f));
+	//	//sprite[i]->setScale(2.0f);
+
+	//	float mx, my;
+	//	mx = (float)rand()/RAND_MAX*700-300;
+	//	my = (float)rand() / RAND_MAX*700-300;
+
+	//	MoveBy* action1 = MoveBy::create(3.0f, Vec2(mx, my));
+	//	sprite[i]->runAction(action1);
+	//}
+	/*sprite[0] = Sprite::create("sinku.png");
+	this->addChild(sprite[0]);
+	sprite[0]->setPosition(Vec2(100 * 2, visibleSize.height / 2.0f));
+	sprite[0]->setScale(2.0f);
+	MoveBy* action1 = MoveBy::create(1.0f, Vec2(200, 100));
+	sprite[0]->runAction(action1);*/
+
 
 	sprite = Sprite::create("neko.png");
 	spriteB = Sprite::create("sinku.png");
-	//sprite = Sprite::create("sample04.png");
-	this->addChild(sprite);
-	this->addChild(spriteB);
+	////sprite = Sprite::create("sample04.png");
+	//this->addChild(sprite);
+	//this->addChild(spriteB);
 
-	//アクションの作成
-	{
-		MoveBy* action1 = MoveBy::create(1.0f, Vec2(200, 100));
-		EaseOut* action2 = EaseOut::create(action1, 2.0f);
-		EaseBounceIn* action3 = EaseBounceIn::create(action1);
-		sprite->runAction(action2);
-	}
-	{
-		MoveBy* action1 = MoveBy::create(1.0f, Vec2(-200, 100));
-		EaseOut* action2 = EaseOut::create(action1, 2.0f);
-		EaseBounceIn* action3 = EaseBounceIn::create(action1);
-		spriteB->runAction(action2);
-		//spriteB->runAction(action2->clone);上のやつを複製できる
-	}
+	////アクションの作成
+	//{
+	//	MoveBy* action1 = MoveBy::create(1.0f, Vec2(200, 100));
+	//	EaseOut* action2 = EaseOut::create(action1, 2.0f);
+	//	EaseBounceIn* action3 = EaseBounceIn::create(action1);
+	//	sprite->runAction(action2);
+	//}
+	//{
+	//	MoveBy* action1 = MoveBy::create(1.0f, Vec2(-200, 100));
+	//	EaseOut* action2 = EaseOut::create(action1, 2.0f);
+	//	EaseBounceIn* action3 = EaseBounceIn::create(action1);
+	//	spriteB->runAction(action2);
+	//	//spriteB->runAction(action2->clone());上のやつを複製できる
+	//}
 	//ScaleTo* action1 = ScaleTo::create(1.0f, 3.0f);
 	//JumpTo* action1 = JumpTo::create(1.5f, Vec2(200, 100), 500, 1);
 	/*ccBezierConfig conf;
@@ -130,15 +170,17 @@ bool HelloWorld::init()
 	BezierTo* action1 = BezierTo:: create(3.0f, conf);*/
 	/*sprite->setOpacity(0);
 	FadeIn* action1 = FadeIn::create(1.0f);*/
-	
+
+
+
 
 
 	//this->addChild(spriteB);
-	spriteB->setScale(2.0f, 2.0f);
+	//spriteB->setScale(2.0f, 2.0f);
 
-	//表示座標を指定
-	sprite->setPosition(Vec2(1280/2.0f, 720/2.0f));
-	spriteB->setPosition(Vec2(1280 / 2.0f, 720 / 2.0f));
+	////表示座標を指定
+	//sprite->setPosition(Vec2(1280/2.0f, 720/2.0f));
+	//spriteB->setPosition(Vec2(1280 / 2.0f, 720 / 2.0f));
 	//回転角を指定（45度
 	//sprite->setRotation(45.0f);
 	//拡縮を指定（45
@@ -152,12 +194,12 @@ bool HelloWorld::init()
 	//色合いを設定
 	//sprite->setColor(Color3B(0xff, 0x00, 0x00));
 	//不透明度を設定
-	sprite->setOpacity(255);
+	//sprite->setOpacity(255);
 
 	//画像の左下が（0,0）
 	//画像の右上が（1,0）
 	//基準点を指定する
-	sprite->setAnchorPoint(Vec2(0.0f, 1.0f));
+	//sprite->setAnchorPoint(Vec2(0.0f, 1.0f));
 	//spriteB->setAnchorPoint(Vec2(0.0f, 1.0f));
 
 	//sprite->setRotation(45.0f);
