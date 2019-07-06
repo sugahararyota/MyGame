@@ -24,6 +24,7 @@
 
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
+#include "AudioEngine.h";
 
 USING_NS_CC;
 
@@ -175,21 +176,21 @@ bool HelloWorld::init()
 	//	spr1->runAction(seq1);
 	//}
 
-	{//0629やってみよう5
-		Sprite* spr1 = Sprite::create("neko.png");
-		spr1->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 100));
-		this->addChild(spr1);
-		MoveBy* moveLeft = MoveBy::create(1.0f, Vec2(-(visibleSize.width - 200), 0));
-		MoveBy* moveDown = MoveBy::create(1.0f, Vec2(0, -(visibleSize.height - 200)));
-		MoveBy* moveRight = moveLeft->reverse();
-		MoveBy* moveUp = moveDown->reverse();
+	//{//0629やってみよう5
+	//	Sprite* spr1 = Sprite::create("neko.png");
+	//	spr1->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 100));
+	//	this->addChild(spr1);
+	//	MoveBy* moveLeft = MoveBy::create(1.0f, Vec2(-(visibleSize.width - 200), 0));
+	//	MoveBy* moveDown = MoveBy::create(1.0f, Vec2(0, -(visibleSize.height - 200)));
+	//	MoveBy* moveRight = moveLeft->reverse();
+	//	MoveBy* moveUp = moveDown->reverse();
 
-		Sequence* seq1 = Sequence::create(moveLeft, moveDown, moveRight, moveUp, nullptr);
+	//	Sequence* seq1 = Sequence::create(moveLeft, moveDown, moveRight, moveUp, nullptr);
 
-		RepeatForever* repeat = RepeatForever::create(seq1);
+	//	RepeatForever* repeat = RepeatForever::create(seq1);
 
-		spr1->runAction(repeat);
-	}
+	//	spr1->runAction(repeat);
+	//}
 	
 
 	//sprite[0]->setPosition(Vec2(1280 / 2.0f, 720 / 2.0f));
@@ -283,10 +284,6 @@ bool HelloWorld::init()
 	/*sprite->setOpacity(0);
 	FadeIn* action1 = FadeIn::create(1.0f);*/
 
-
-
-
-
 	//this->addChild(spriteB);
 	//spriteB->setScale(2.0f, 2.0f);
 
@@ -322,6 +319,19 @@ bool HelloWorld::init()
 	//sprite->setFlippedX(true);
 	//sprite->setTextureRect(Rect(0, 32, 32, 32));
 
+	//音
+	experimental::AudioEngine::play2d("bgm.mp3",true);//trueを書くとループ
+
+	//関数呼び出しアクション
+	CallFunc* callFunc = CallFunc::create(CC_CALLBACK_0(HelloWorld::myFunction, this));
+
+	//遅らせて関数を実行
+	DelayTime* delay = DelayTime::create(1.0f);
+
+	Sequence* seq = Sequence::create(delay, callFunc, nullptr);
+
+	this->runAction(seq);
+
 	this->scheduleUpdate();         //変更
 
 	//counter = 0;
@@ -354,6 +364,17 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 void HelloWorld::update(float delta)
 {
+	//counter--;
+	//////0706サウンド
+	//if (counter == 60)
+	//{
+	//	experimental::AudioEngine::stopAll();//すべてのサウンドを止める
+	//	experimental::AudioEngine::play2d("bgm.mp3");//止めた後に鳴らす
+
+	//}
+	
+
+
 	/*opacity += 1.0f;
 	spriteB->setOpacity(opacity);
 	sprite->setOpacity(255.0f - opacity);
@@ -505,4 +526,10 @@ void HelloWorld::update(float delta)
 
 
 
+}
+
+void HelloWorld::myFunction()
+{
+	Sprite* spr = Sprite::create("neko.png");
+	this->addChild(spr);
 }

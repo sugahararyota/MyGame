@@ -59,6 +59,14 @@ public:
 
 	//float blue;
 	//float opacity;
+
+	//0706’Ç‰Á
+	int audioID;
+
+	int counter = 60;
+
+	void myFunction();
+	
 };
 
 #endif // __HELLOWORLD_SCENE_H__
