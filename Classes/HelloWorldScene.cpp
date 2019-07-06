@@ -163,7 +163,7 @@ bool HelloWorld::init()
 	//}
 	//{//0629‚â‚Á‚Ä‚Ý‚æ‚¤4
 	//	Sprite* spr1 = Sprite::create("neko.png");
- //       spr1->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 100));
+	//  spr1->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 100));
 	//	this->addChild(spr1);
 	//	MoveBy* moveLeft = MoveBy::create(1.0f, Vec2(-(visibleSize.width - 200), 0));
 	//	MoveBy* moveDown = MoveBy::create(1.0f, Vec2(0, -(visibleSize.height - 200)));
